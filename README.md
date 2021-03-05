@@ -138,3 +138,163 @@ function App() {
 
 export default App;
 ```
+
+### useReducer를 사용한 상태 관리
+
+Action을 type으로 정리 하여서 사용할 수 있다.
+기존의 js로 작성하던 Action대한 부분을 자동완성으로 조금 더 편리하게 작성할 수 있는 것이 장점
+
+```typescript
+import React, { useReducer } from "react";
+
+type Action = { type: "INCREASE" } | { type: "DECREASE" };
+
+function reducer(state: number, action: Action): number {
+  switch (action.type) {
+    case "INCREASE":
+      return state + 1;
+    case "DECREASE":
+      return state - 1;
+    default:
+      throw new Error("Unhandled error");
+  }
+}
+
+function Counter() {
+  const [count, dispatch] = useReducer(reducer, 0);
+
+  const onIncrease = () => dispatch({ type: "INCREASE" });
+  const onDecrease = () => dispatch({ type: "DECREASE" });
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <div>
+        <button onClick={onIncrease}>+1</button>
+        <button onClick={onDecrease}>-1</button>
+      </div>
+    </div>
+  );
+}
+
+export default Counter;
+```
+
+### 좀 더 복잡한 reducer 사용하기
+
+- State와 Action에 대한 것들을 먼저 정의 한다.
+
+Color의 type을 지정하고 State 지정하기
+
+```typescript
+type Color = "red" | "orange" | "yellow";
+
+type State = {
+  count: number;
+  text: string;
+  color: Color;
+  isGood: boolean;
+};
+```
+
+action 지정하기
+
+```typescript
+type Action =
+  | { type: "SET_COUNT"; count: number }
+  | { type: "SET_TEXT"; text: string }
+  | { type: "SET_COLOR"; color: Color }
+  | { type: "TOGGLE_GOOD" };
+```
+
+- TypeScipt의 장점
+  switch case 문을 작성할 때 case나 action.text 같은 실수를 방지 할 수 있다.
+
+* boolean의 경우 화면에 출력 되지 않으므로 이를 true false로 출력을 시켜줘야 한다.
+
+* state.을 사용하여서 내가 reducer로 설정한 state값을 출력 할 수 있다.
+
+```typescript
+import React, { useReducer } from "react";
+
+type Color = "red" | "orange" | "yellow";
+
+type State = {
+  count: number;
+  text: string;
+  color: Color;
+  isGood: boolean;
+};
+
+type Action =
+  | { type: "SET_COUNT"; count: number }
+  | { type: "SET_TEXT"; text: string }
+  | { type: "SET_COLOR"; color: Color }
+  | { type: "TOGGLE_GOOD" };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "SET_COUNT":
+      return {
+        ...state,
+        count: action.count,
+      };
+    case "SET_TEXT":
+      return {
+        ...state,
+        text: action.text,
+      };
+    case "SET_COLOR":
+      return {
+        ...state,
+        color: action.color,
+      };
+    case "TOGGLE_GOOD":
+      return {
+        ...state,
+        isGood: !state.isGood,
+      };
+    default:
+      throw new Error("Unhandled action type");
+  }
+}
+
+function ReducerSample() {
+  const [state, dispatch] = useReducer(reducer, {
+    count: 0,
+    text: "hello",
+    color: "red",
+    isGood: true,
+  });
+
+  const setCount = () => dispatch({ type: "SET_COUNT", count: 5 });
+  const setText = () => dispatch({ type: "SET_TEXT", text: "bye" });
+  const setColor = () => dispatch({ type: "SET_COLOR", color: "orange" });
+  const toggleGood = () => dispatch({ type: "TOGGLE_GOOD" });
+
+  return (
+    <div>
+      <p>
+        <code>count: :</code> {state.count}
+      </p>
+      <p>
+        <code>count: :</code> {state.text}
+      </p>
+      <p>
+        <code>count: :</code> {state.color}
+      </p>
+      <p>
+        <code>count: :</code> {state.isGood ? "true" : "false"}
+      </p>
+      <div>
+        <button onClick={setCount}>SET_COUNT</button>
+        <button onClick={setText}>SET_TEXT</button>
+        <button onClick={setColor}>SET_COLOR</button>
+        <button onClick={toggleGood}>TOGGLE_GGOD</button>
+      </div>
+    </div>
+  );
+}
+
+export default ReducerSample;
+```
