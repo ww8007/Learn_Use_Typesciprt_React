@@ -88,3 +88,53 @@ function Greetings({ name, mark, optional, onClick }: GreetingProps) {
     TypeScript를 사용하면 props가 빠진 부분에 대하여 바로 체크가 가능하기 때문에 좋다.
 
 ### 상태 관리 in TypeScript
+
+- 간단한 Counter 만들기
+
+useState의 부분의 오른쪽에 Genceric을 설정해도 되고 안해도 됨
+-> 코딩 할 때의 편의성으로 가독성을 높혀줄 수는 있음
+
+- 기본적인 코딩은 typeScript와 기본적 js와 별반 차이는 없음
+  -> 한 가지 차이는 tsx가 확장자
+
+### Props가 존재하는 예제
+
+Params에 그냥 type을 안정하고 바로 객체 형식으로 선언이 가능하다.
+
+- 일반적인 Pararms를 설정하여서 전달해주는 경우
+
+```typescript
+type Params = {
+  name: string;
+  description: string;
+};
+
+type MyFormProps = {
+  onSumbit: (form: Params) => void;
+};
+```
+
+- 객체로 바로 선언하는 경우
+
+```typescript
+type MyFormProps = {
+  onSumbit: (form: { name: string; description: string }) => void;
+};
+```
+
+- props를 사용한 경우 App.tsx에서 이것을 무조건 사용해 주어야 한다.
+  우리가 작성한 코드에서 form에 대한 구조를 설정하고 사용하였기 때문에 이를 사용하여야 한다.
+
+```typescript
+import React from "react";
+import MyForm from "./MyForm";
+
+function App() {
+  const onSubmit = (form: { name: string; description: string }) => {
+    console.log(form);
+  };
+  return <MyForm onSubmit={onSubmit}></MyForm>;
+}
+
+export default App;
+```
