@@ -86,3 +86,5 @@ function Greetings({ name, mark, optional, onClick }: GreetingProps) {
 > 정리
 
     TypeScript를 사용하면 props가 빠진 부분에 대하여 바로 체크가 가능하기 때문에 좋다.
+
+### 상태 관리 in TypeScript
