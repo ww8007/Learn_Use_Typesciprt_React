@@ -298,3 +298,32 @@ function ReducerSample() {
 
 export default ReducerSample;
 ```
+
+### Context 사용하기
+
+createContext를 통해서 Generic으로 생성
+
+- 기본값이 필수
+  default Value = null
+  또는 만든 타입
+
+* reducer 잘라내오기
+
+* 상태관리 context 생성
+
+```typescript
+const SampleStateContext = createContext<State | null>(null);
+```
+
+- dispatch Context 생성
+  만약 Dispatch를 사용한다면 Dispatch를 Generic으로 가져와야 함
+
+```typescript
+const SampleDispatchContext = createContext<Dispatch<Action> | null>(null);
+```
+
+- SampleProviderProps를 생성
+  그 뒤에 SampleProvider에 children으로 넣어줘야 한다.
+
+* useSampleSate, useSampleDispatch 라는 custom Hook 만들어서 사용
+  state, dispatch가 null 일때를 대비하여서 throw new Error 설정해줘야 함
