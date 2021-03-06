@@ -327,3 +327,8 @@ const SampleDispatchContext = createContext<Dispatch<Action> | null>(null);
 
 * useSampleSate, useSampleDispatch 라는 custom Hook 만들어서 사용
   state, dispatch가 null 일때를 대비하여서 throw new Error 설정해줘야 함
+
+### 타입스크립트와 리덕스 프로처럼 사용하기
+
+무조건 정답은 아니지만 좋은 경우임
+Redux를 이미 알고 있다는 전제로 시작
