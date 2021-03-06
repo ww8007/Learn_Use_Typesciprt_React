@@ -42,3 +42,29 @@ type CounterAction =
 ```
 
 - reducer를 만들 때는 return type을 설정해줘야 한다.
+
+* 결과물에 대한 type도 설정해주는 것 잊지 말기
+
+### Redux를 사용한 todo 리스트 만들기
+
+1. todo module 생성
+   action 만들 때 as const 추가하는 것 잊지 말기
+1. action 만들어주기
+   전달받는 payload 값 type 설정해주는 것 잊지 말기
+1.
+
+- css Style 바로 적용하는 법
+
+아래와 같이 CSSProperties를 적용하여서 바로 불러올 수 있다.
+
+```typescript
+const textStyle: React.CSSProperties = {
+  textDecoration: todo.done ? "line-through" : "none",
+};
+const removeStyle: CSSProperties = {
+  color: "red",
+  marginLeft: 8,
+};
+```
+
+- container 에서는 따로 Props를 type으로 설정할 필요가 없다.
