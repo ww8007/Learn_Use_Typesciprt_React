@@ -4,7 +4,7 @@ import CounterContainer from "./containers/CounterContainer";
 import TodoApp from "./containers/TodoApp";
 
 function App() {
-   return <CounterContainer />;
+   return <TodoApp />;
 }
 
 export default App;
